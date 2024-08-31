@@ -1,0 +1,21 @@
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:localhost.p12
+    key-store-password:
+    key-store-type: PKCS12
+  servlet:
+    context-path: /hospital
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:2504/DB_Hospital
+    username: postgres
+    password: maihuylong102
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect

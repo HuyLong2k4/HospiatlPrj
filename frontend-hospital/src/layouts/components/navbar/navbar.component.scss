@@ -1,0 +1,43 @@
+.color1 {
+  background-color: #216358 !important;
+}
+
+.--text {
+  font-weight: 600;
+  font-size: large;
+}
+
+.--search {
+  width: 100%;
+}
+.--number {
+  display: flex;
+  border-radius: 6px;
+  min-width: 35px;
+  justify-content: center;
+  padding: 2px 6px;
+  font-weight: 400;
+  height: max-content;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+//
+.--numberList {
+    display: flex;
+    border-radius: 6px;
+    min-width: 35px;
+    justify-content: center;
+    padding: 2px 6px;
+    font-weight: 400;
+    height: -moz-max-content;
+    height: max-content;
+    border: 1px solid #e7e7e7;
+}
+
+
+
+.--textList {
+  font-size: 16px;
+    font-weight: 600;
+    color: black;
+}

@@ -13,6 +13,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +32,8 @@ public class PatientService {
             throw new AppException(ErrorCode.PATIENT_EXISTED);
 
         Patient patient = patientMapper.toPatient(request);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        patient.setPassword(passwordEncoder.encode(request.getPassword()));
 
         return patientRepository.save(patient);
     }

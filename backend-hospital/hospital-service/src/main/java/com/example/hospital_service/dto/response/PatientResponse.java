@@ -1,6 +1,5 @@
-package com.example.hospital_service.dto.request;
+package com.example.hospital_service.dto.response;
 
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,13 +10,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PatientCreateRequest {
+public class PatientResponse {
+    String patient_id;
     String patientname;
-
-    @Size(min = 8, message = "Vui long nhap 8 ky tu")
     String password;
     String address;
     String phone;
     LocalDate dob;
-
 }

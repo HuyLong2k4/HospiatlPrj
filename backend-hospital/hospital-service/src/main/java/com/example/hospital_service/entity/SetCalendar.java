@@ -8,8 +8,8 @@ import java.time.LocalDate;
 @Entity
 public class SetCalendar {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int setCal_id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String setCal_id;
     private LocalDate setDate;
     private Time setHour;
     private String note;
@@ -27,11 +27,11 @@ public class SetCalendar {
     @JoinColumn(name = "service_id")
     private Service service_id;
 
-    public int getSetCal_id() {
+    public String getSetCal_id() {
         return setCal_id;
     }
 
-    public void setSetCal_id(int setCal_id) {
+    public void setSetCal_id(String setCal_id) {
         this.setCal_id = setCal_id;
     }
 

@@ -3,39 +3,42 @@ package com.example.hospital_service.service;
 
 import com.example.hospital_service.dto.request.PatientCreateRequest;
 import com.example.hospital_service.dto.request.PatientUpdateRequest;
+import com.example.hospital_service.dto.response.PatientResponse;
 import com.example.hospital_service.entity.Patient;
+import com.example.hospital_service.exception.AppException;
+import com.example.hospital_service.exception.ErrorCode;
+import com.example.hospital_service.mapper.PatientMapper;
 import com.example.hospital_service.repository.PatientRepository;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PatientService {
-    @Autowired
-    private PatientRepository patientRepository;
+    PatientRepository patientRepository;
+    PatientMapper patientMapper;
 
     public Patient createPatient(PatientCreateRequest request) {
-        Patient patient = new Patient();
 
-        patient.setPatient_name(request.getPatient_name());
-        patient.setPassword(request.getPassword());
-        patient.setDob(request.getDob());
-        patient.setAddress(request.getAddress());
-        patient.setPhone(request.getPhone());
+        if(patientRepository.existsByPatientname((request.getPatientname())))
+            throw new AppException(ErrorCode.PATIENT_EXISTED);
+
+        Patient patient = patientMapper.toPatient(request);
 
         return patientRepository.save(patient);
     }
 
-    public Patient updatePatient(String patient_id, PatientUpdateRequest request) {
-        Patient patient = getPatient(patient_id);
+    public PatientResponse updatePatient(String patient_id, PatientUpdateRequest request) {
+        Patient patient = patientRepository.findById(patient_id).orElseThrow(() -> new RuntimeException("Patient not found"));
+        patientMapper.updatePatient(patient, request);
 
-        patient.setPassword(request.getPassword());
-        patient.setDob(request.getDob());
-        patient.setAddress(request.getAddress());
-        patient.setPhone(request.getPhone());
-
-        return patientRepository.save(patient);
+        return patientMapper.toPatientResponse(patientRepository.save(patient));
     }
 
     public void deletePatient(String patient_id) {
@@ -45,7 +48,7 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-    public Patient getPatient(String patient_id) {
-        return patientRepository.findById(patient_id).orElseThrow(() -> new RuntimeException("Patient not found"));
+    public PatientResponse getPatient(String patient_id) {
+        return patientMapper.toPatientResponse(patientRepository.findById(patient_id).orElseThrow(() -> new RuntimeException("Patient not found")));
     }
 }

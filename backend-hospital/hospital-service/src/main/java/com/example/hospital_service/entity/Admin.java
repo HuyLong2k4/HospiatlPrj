@@ -1,10 +1,11 @@
 package com.example.hospital_service.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDate;
 
 @Entity
 @Data
@@ -12,15 +13,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Doctor {
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String doctor_id;
-    String doctor_name;
+    String admin_id;
+    String admin_name;
     String password;
-    String phone;
-    LocalDate dob;
-    @ManyToOne
-    @JoinColumn(name = "major_id")
-    Major major_id;
 }

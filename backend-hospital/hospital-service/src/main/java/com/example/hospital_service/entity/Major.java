@@ -8,8 +8,8 @@ import jakarta.persistence.Id;
 @Entity
 public class Major {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int major_id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String major_id;
     private String major_name;
 
     public String getMajor_name() {
@@ -20,11 +20,11 @@ public class Major {
         this.major_name = major_name;
     }
 
-    public int getMajor_id() {
+    public String getMajor_id() {
         return major_id;
     }
 
-    public void setMajor_id(int major_id) {
+    public void setMajor_id(String major_id) {
         this.major_id = major_id;
     }
 }
